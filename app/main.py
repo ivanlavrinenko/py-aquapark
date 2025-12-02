@@ -10,12 +10,14 @@ class IntegerRange:
         self.max_amount = max_amount
 
     def __set_name__(self,
-                     owner: Any,
+                     owner: type,
                      name: str) -> None:
         self.name = name
         self.private_name = f"__{name}"
 
-    def __get__(self) -> int:
+    def __get__(self,
+                instance: Any,
+                owner: type) -> int:
         return getattr(self, self.private_name)
 
     def __set__(self,
@@ -25,7 +27,7 @@ class IntegerRange:
             raise TypeError()
         if not (self.min_amount <= value <= self.max_amount):
             raise ValueError()
-        setattr(self, self.private_name, value)
+        setattr(instance, self.private_name, value)
 
 
 class Visitor:
