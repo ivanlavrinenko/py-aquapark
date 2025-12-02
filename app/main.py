@@ -18,7 +18,7 @@ class IntegerRange:
     def __get__(self,
                 instance: Any,
                 owner: type) -> int:
-        return getattr(self, self.private_name)
+        return getattr(instance, self.private_name)
 
     def __set__(self,
                 instance: Any,
